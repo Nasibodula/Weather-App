@@ -1,123 +1,78 @@
-import React from 'react'
-import { Background, MiniCard, WeatherCard } from './Components'
-import { JsxElement } from 'typescript'
+import React from 'react';
+import { StateContextProvider, useStateContext } from './Context/index';
+import {WeatherCard} from './Components' ;
+import MiniCard from './Components/MiniCard' ;
+import { Background } from './Components';
+import search from './Assets/icons/search.png'
+import { useState } from 'react'
+import './App.css'
 
-function App(): JSX.Element {
+const App = () => {
   return (
-    <div>
-          <div className='container-fluid text-white px-4'>
-      <nav className='navbar navbar-expand-lg navbar-light bg-light px-0'>
-        <h1 className='navbar-brand font-weight-bold'>Weather App</h1>
-        <div className='d-flex flex-row align-items-center'>
-          {/* <img src={search} alt="search" className='mr-2' style={{ width: '24px', height: '24px' }} /> */}
+    <StateContextProvider>
+      <AppContent />
+    </StateContextProvider>
+  );
+};
+
+const AppContent = () => {
+  const { weather, thisLocation, values, place, setPlace } = useStateContext();
+  const [input, setInput] = useState('')
+
+  const submitCity = () => {
+    setPlace(input);
+    setInput('')
+  };
+
+  return (
+    <div className='dflex cfff w100 h100'>
+      <Background/>
+      <nav className='navbar dflex w100 h5 sbetween aligncenter'>
+        <h1 className='b'>Weather App</h1>
+        <div className='searchbar dflex'>
+          <img src={search} alt="search" className='search' />
           <input 
             onKeyUp={(e) => {
               if (e.key === 'Enter') {
                 submitCity();
               }
-            }} 
-            type="text" 
-            placeholder='Search city' 
-            className='form-control' 
-            value={input} 
-            onChange={e => setInput(e.target.value)} 
-          />
+            }}
+            type="text"
+            placeholder='Search city'
+            className=''
+            value={input}
+            onChange={e=> setInput(e.target.value)} />
         </div>
       </nav>
-      <Background/>
-      <WeatherCard/>
-      <MiniCard/>
+      
+      <main className='main-content'>
+        <WeatherCard
+          place={thisLocation}
+          windspeed={weather.windspeed !== undefined ? weather.windspeed : 0}
+          humidity={weather.humidity !== undefined ? weather.humidity : 0}
+          temperature={weather.temp !== undefined ? weather.temp : 0}
+          heatIndex={weather.heatindex !== undefined ? weather.heatindex : 0}
+          iconString={weather.conditions !== undefined ? weather.conditions : ""}
+          conditions={weather.conditions !== undefined ? weather.conditions : ""}
+        />
+
+        <div className='minicard-content'>
+          {
+            values?.slice(1, 7).map(curr => {
+              return (
+                <MiniCard 
+                  key={curr.datetime}
+                  time={curr.datetime}
+                  temp={curr.temp}
+                  iconString={curr.conditions ?? ""}
+                />
+              )
+            })
+          }
+        </div>
+      </main>
     </div>
-  )
-}
+  );
+};
 
-export default App
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState } from 'react';
-// import './App.css';
-// // import search from './assets/icons/search.svg';
-// import { useStateContext } from './Context';
-// import { Background, WeatherCard, MiniCard } from './Components';
-
-// function App(): JSX.Element {
-//   const [input, setInput] = useState<string>('');
-//   const { weather, thisLocation, values, place, setPlace } = useStateContext();
-
-//   const submitCity = (): void => {
-//     setPlace(input);
-//     setInput('');
-//   };
-
-//   return (
-    // <div className='container-fluid text-white px-4'>
-    //   <nav className='navbar navbar-expand-lg navbar-light bg-light px-0'>
-    //     <h1 className='navbar-brand font-weight-bold'>Weather App</h1>
-    //     <div className='d-flex flex-row align-items-center'>
-    //       {/* <img src={search} alt="search" className='mr-2' style={{ width: '24px', height: '24px' }} /> */}
-    //       <input 
-    //         onKeyUp={(e) => {
-    //           if (e.key === 'Enter') {
-    //             submitCity();
-    //           }
-    //         }} 
-    //         type="text" 
-    //         placeholder='Search city' 
-    //         className='form-control' 
-    //         value={input} 
-    //         onChange={e => setInput(e.target.value)} 
-    //       />
-    //     </div>
-    //   </nav>
-//       <Background/>
-//       <main className='row justify-content-center mt-4'>
-//         <div className='col-lg-6'>
-//           <WeatherCard
-//             place={thisLocation}
-//             windspeed={weather.wspd}
-//             humidity={weather.humidity}
-//             temperature={weather.temp}
-//             heatIndex={weather.heatindex}
-//             iconString={weather.conditions}
-//             conditions={weather.conditions}
-//           />
-//         </div>
-//         <div className='col-lg-6'>
-//           <div className='row'>
-//             {
-//               values?.slice(1, 7).map(curr => (
-//                 <div key={curr.datetime} className='col-md-4'>
-//                   <MiniCard
-//                     time={curr.datetime}
-//                     temp={curr.temp}
-//                     iconString={curr.conditions}
-//                   />
-//                 </div>
-//               ))
-//             }
-//           </div>
-//         </div>
-//       </main>
-//     </div>
-//   );
-// }
-
-// export default App;
+export default App;

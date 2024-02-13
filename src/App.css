@@ -12,7 +12,7 @@
 .w5{width:5rem}
 .w30{width: 20rem;}
 .h30{ height: 30rem;}
-.h100{height: 100%;}
+.h100{height: 100vh;}
 .w15{width: 15rem;}
 .w100{width: 100%}
 .wauto{width: auto;}
@@ -55,17 +55,48 @@
     background: #333;
 }
 .minicard{
+    box-sizing: border-box;
     top: 15vh;
     left: 50vw;
     background: rgba(114, 106, 106, 0.575);
     padding: 1rem 1rem;
     width: 10rem !important;
     height: 10rem;
-    overflow: hidden;
     border-radius: 1rem;
 }
+
 .image2{
     height: 3rem;
     width: 3rem;
     margin-left: 2rem;
 }
+.navbar{
+    padding: 0.75rem;
+    
+}
+.searchbar{
+    border: none;
+    outline: none;
+    background: rgba(114, 106, 106, 0.575);
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 1rem;
+}
+.searchbar input{
+    background: rgba(53, 50, 50, 0.575);
+    color: #fff;
+}
+.search{
+    height: 3rem;
+    width: 3rem;
+    margin-right: auto;
+}
+
+.main-content{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 20px ;
+    /* justify-content: center; */
+}
+

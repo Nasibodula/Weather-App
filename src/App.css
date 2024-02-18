@@ -57,7 +57,7 @@
 .minicard{
     box-sizing: border-box;
     top: 15vh;
-    left: 50vw;
+    left: 50%;
     background: rgba(114, 106, 106, 0.575);
     padding: 1rem 1rem;
     width: 10rem !important;

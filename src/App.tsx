@@ -6,9 +6,12 @@ import { Background } from './Components';
 import search from './Assets/icons/search.png'
 import { useState } from 'react'
 import './App.css'
+import WeatherData from './Context/context';
+// import {fetchWeather} from './Context/index'
 
 const App = () => {
   return (
+    // <WeatherData/>
     <StateContextProvider>
       <AppContent />
     </StateContextProvider>
@@ -17,9 +20,10 @@ const App = () => {
 
 const AppContent = () => {
   const { weather, thisLocation, values, place, setPlace } = useStateContext();
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState('Nairobi')
 
   const submitCity = () => {
+
     setPlace(input);
     setInput('')
   };
@@ -44,9 +48,8 @@ const AppContent = () => {
             onChange={e=> setInput(e.target.value)} />
         </div>
       </nav>
-      
       <main className='main-content'>
-        <WeatherCard
+        <WeatherCard 
           place={thisLocation}
           windspeed={weather.windspeed !== undefined ? weather.windspeed : 0}
           humidity={weather.humidity !== undefined ? weather.humidity : 0}
@@ -56,14 +59,14 @@ const AppContent = () => {
           conditions={weather.conditions !== undefined ? weather.conditions : ""}
         />
 
-        <div className='minicard-content'>
+        <div className='minicard'>
           {
             values?.slice(1, 7).map(curr => {
               return (
                 <MiniCard 
-                  key={curr.datetime}
+                  key={curr.datetime !== undefined ? curr.datetime :0}
                   time={curr.datetime}
-                  temp={curr.temp}
+                  temp={curr.temp !== undefined ? curr.temp :0}
                   iconString={curr.conditions ?? ""}
                 />
               )
@@ -74,5 +77,6 @@ const AppContent = () => {
     </div>
   );
 };
-
 export default App;
+
+

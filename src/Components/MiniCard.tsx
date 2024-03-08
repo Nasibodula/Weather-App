@@ -38,7 +38,7 @@ const MiniCard: React.FC<Props> = ({ time, temp, iconString }) => {
 
 return (
   <div className='minicard pfixed cfff'>
-    <p className='day dflex jcenter'>{new Date(time).toLocaleTimeString('en', { weekday: 'long' }).split(" ")[0]}</p>
+    <p className='day dflex jcenter'> {new Date(time).toLocaleTimeString('en', { weekday: 'long' }).split(" ")[0]}</p>
     <hr />
     <div className=''>
       <img src={icon} alt="forecast not available" className='image2 dflex ' />

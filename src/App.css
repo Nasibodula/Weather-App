@@ -90,9 +90,16 @@
       max-width: 27rem !important;
     }
     .searchbar input{
-        width: 15rem;
+        width: 20rem;
     }
     .weather h1{
-        font-size: 40px;
+        font-size: 30px;
     }
+    .name{
+        top: 80%;
+    }
+    .weather-details{
+        margin-bottom: 2rem;
+    }
+
   }

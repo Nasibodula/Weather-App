@@ -40,7 +40,7 @@ const api = {
   base: "https://api.openweathermap.org/data/2.5/",
 };
 const defaultWeather: WeatherData = {
-  name: "City Name",
+  name: "City",
   main: {
     temp: 20,
     humidity: 50, 
